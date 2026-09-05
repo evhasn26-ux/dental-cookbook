@@ -34,21 +34,7 @@
             <p class="text-xs text-slate-300 mt-1">المادة المعتمدة: بروتوكولات التشميع، السبك، وثني الأسلاك التقويمية مع المعايير والقياسات بالمليمتر.</p>
         </div>
 
-        <!-- Sections Menu -->
-        <div class="grid grid-cols-2 gap-3">
-            <button class="card p-3 text-right hover:border-sky-500 transition">
-                <span class="text-2xl">⚡</span>
-                <div class="font-bold text-sm mt-1">تقويم الأسنان</div>
-                <div class="text-[10px] text-slate-400">ثني الأسلاك والأجهزة</div>
-            </button>
-            <button class="card p-3 text-right hover:border-sky-500 transition">
-                <span class="text-2xl">🔥</span>
-                <div class="font-bold text-sm mt-1">التعويضات الثابتة</div>
-                <div class="text-[10px] text-slate-400">التشميع والسبك والبوتقة</div>
-            </button>
-        </div>
-
-        <!-- Protocol Card 1 -->
+        <!-- Protocol Card 1: Orthodontics -->
         <section class="card p-5 space-y-4">
             <div class="flex justify-between items-center border-b border-slate-700 pb-3">
                 <span class="step-badge text-xs">درس 1</span>
@@ -60,31 +46,28 @@
                 يعتبر ضامر أدمز من أهم عناصر التثبيت في الأجهزة التقويمية المتحركة، ويوفر تثبيتاً ثنائياً على النتوءات الملاصقة للرحى.
             </p>
 
-            <!-- Tools Needed -->
             <div class="bg-slate-900/60 p-3 rounded-lg border border-slate-800 space-y-1">
                 <div class="text-xs font-bold text-sky-300">🛠️ الأدوات والمواد المطلوبة:</div>
                 <ul class="text-xs text-slate-300 list-disc list-inside space-y-0.5">
-                    <li>سلك ستانلس ستيل (Stainless Steel Wire) قطر **0.7 mm**.</li>
+                    <li>سلك ستانلس ستيل (Stainless Steel Wire) قطر 0.7 mm.</li>
                     <li>زرادية أدمز (Adams Plier / Universal Plier).</li>
                     <li>مسطرة قياس مليمترية بدقة High-Precision.</li>
                 </ul>
             </div>
 
-            <!-- Steps -->
             <div class="space-y-3 pt-2">
                 <div class="text-xs font-bold text-amber-400 uppercase tracking-wider">خطوات التنفيذ العملي:</div>
                 
                 <div class="bg-slate-800/80 p-3 rounded-lg border-l-2 border-sky-400 text-xs space-y-1">
                     <div class="font-bold text-white">1. قياس الجسرة العرضية (Bridge):</div>
-                    <p class="text-slate-300">قم بمسافة بين المسافتين الملاصقتين للضرس وقم بثني السلك بزاوية $90^\circ$ بطول يقارب **2/3 عرض السن** (حوالي 5 - 6 mm).</p>
+                    <p class="text-slate-300">قس المسافة بين المسافتين الملاصقتين للضرس وقم بثني السلك بزاوية 90° بطول يقارب 2/3 عرض السن (حوالي 5 - 6 mm).</p>
                 </div>
 
                 <div class="bg-slate-800/80 p-3 rounded-lg border-l-2 border-sky-400 text-xs space-y-1">
                     <div class="font-bold text-white">2. تشكيل العروتين (Arrowheads):</div>
-                    <p class="text-slate-300">باستخدام رأس زرادية أدمز، قم بثني السلك للأسفل وبشكل حاد بزاوية $45^\circ$ لتشكيل رأسي السهم اللذين يستقران في مناطق التقعر الملاصق (Undercuts).</p>
+                    <p class="text-slate-300">باستخدام رأس زرادية أدمز، قم بثني السلك للأسفل وبشكل حاد بزاوية 45° لتشكيل رأسي السهم اللذين يستقران في مناطق التقعر الملاصق (Undercuts).</p>
                 </div>
 
-                <!-- SVG Diagram -->
                 <div class="p-3 bg-slate-900 rounded-lg text-center border border-slate-800">
                     <div class="text-[10px] text-slate-400 mb-2">رسم توضيحي لزاوية الجسرة والعروات (SVG Schematic)</div>
                     <svg class="mx-auto" width="180" height="80" viewBox="0 0 200 100">
@@ -96,10 +79,68 @@
                 </div>
             </div>
 
-            <!-- Troubleshooting -->
             <div class="bg-rose-500/10 border border-rose-500/30 p-3 rounded-lg text-xs text-rose-300 space-y-1">
                 <div class="font-bold">⚠️ أخطاء معملية شائعة لتجنبها:</div>
                 <p>تجنب المبالغة في ثني السلك بنفس النقطة عدة مرات لمنع ظاهرة الإجهاد العضلي للسلك (Work Hardening) وتكسره أثناء الضبط.</p>
+            </div>
+        </section>
+
+        <!-- Protocol Card 2: Prosthodontics -->
+        <section class="card p-5 space-y-4">
+            <div class="flex justify-between items-center border-b border-slate-700 pb-3">
+                <span class="step-badge text-xs bg-amber-600">درس 2</span>
+                <span class="text-xs text-amber-400 font-mono">Prosthodontics Protocol</span>
+            </div>
+
+            <h3 class="text-lg font-bold text-white">التشميع التشخيصي والسبك (Diagnostic Wax-up & Casting)</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+                بروتوكول بناء النموذج الشمعي للتاج الكامل (Full Cast Crown) باستخدام مزيج الشمع الأمريكي الأخضر والشمع الأحمر، وتجهيز قناة التغذية (Sprue) للسبك.
+            </p>
+
+            <div class="bg-slate-900/60 p-3 rounded-lg border border-slate-800 space-y-1">
+                <div class="text-xs font-bold text-amber-300">🛠️ الأدوات والمواد المطلوبة:</div>
+                <ul class="text-xs text-slate-300 list-disc list-inside space-y-0.5">
+                    <li>شمع تشكلي خفيف (American Green Wax).</li>
+                    <li>شمع صفائح أحمر (Red Sheet Wax) للطبقات القاعية.</li>
+                    <li>مشرط تشميع PKT (Thomas Waxing Instruments).</li>
+                    <li>سلك تغذية شمعي (Wax Sprue) بقطر 2.5 mm إلى 3.0 mm.</li>
+                    <li>طلاء عازل للجبس (Die Spacer) بسمك 25 micron.</li>
+                </ul>
+            </div>
+
+            <div class="space-y-3 pt-2">
+                <div class="text-xs font-bold text-amber-400 uppercase tracking-wider">خطوات التنفيذ العملي:</div>
+                
+                <div class="bg-slate-800/80 p-3 rounded-lg border-l-2 border-amber-400 text-xs space-y-1">
+                    <div class="font-bold text-white">1. تطبيق العازل وتأسيس القاعدة:</div>
+                    <p class="text-slate-300">ضع طبقتين من الـ Die Spacer على الدعامة مع ترك 1 mm قبل حد الإنهاء (Margin). يتم وضع طبقة رقيقة من الشمع الأحمر كقاعدة للتكييف.</p>
+                </div>
+
+                <div class="bg-slate-800/80 p-3 rounded-lg border-l-2 border-amber-400 text-xs space-y-1">
+                    <div class="font-bold text-white">2. بناء المعالم التشريحية (Green Wax):</div>
+                    <p class="text-slate-300">استخدم الشمع الأخضر الأمريكي الأكثر صلابة لبناء الحفاف الملاصق والحدبات (Cusps) للحصول على تفاصيل تشريحية دقيقة وثابتة عند درجة حرارة المختبر.</p>
+                </div>
+
+                <div class="bg-slate-800/80 p-3 rounded-lg border-l-2 border-amber-400 text-xs space-y-1">
+                    <div class="font-bold text-white">3. تثبيت قناة التغذية (Sprueing):</div>
+                    <p class="text-slate-300">ثبّت وتد الشمع بقطر 2.5 mm على أضخم حدبة غير عاملة (Non-functional Cusp) بزاوية 45° لضمان انسياب المعدن المنصهر بسلاسة.</p>
+                </div>
+
+                <!-- SVG Diagram -->
+                <div class="p-3 bg-slate-900 rounded-lg text-center border border-slate-800">
+                    <div class="text-[10px] text-slate-400 mb-2">مخطط تثبيت قناة التغذية وزاوية الدخول (Sprue Attachment)</div>
+                    <svg class="mx-auto" width="160" height="90" viewBox="0 0 160 90">
+                        <path d="M 40 70 C 40 40, 50 30, 80 30 C 110 30, 120 40, 120 70 Z" fill="#15803d" stroke="#22c55e" stroke-width="2"/>
+                        <line x1="100" y1="35" x2="140" y2="10" stroke="#f59e0b" stroke-width="5" stroke-linecap="round"/>
+                        <text x="80" y="60" fill="#ffffff" font-size="9" text-anchor="middle">Wax Pattern</text>
+                        <text x="135" y="28" fill="#f59e0b" font-size="8">Sprue 45°</text>
+                    </svg>
+                </div>
+            </div>
+
+            <div class="bg-rose-500/10 border border-rose-500/30 p-3 rounded-lg text-xs text-rose-300 space-y-1">
+                <div class="font-bold">⚠️ أخطاء معملية شائعة لتجنبها:</div>
+                <p>تجنب وضع الـ Sprue مستقيماً بزاوية 90° على السطح الطاحن لتفادي اضطراب تدفق المعدن (Turbulence) وتشكل الفجوات الغازية داخل التاج.</p>
             </div>
         </section>
 
@@ -107,4 +148,3 @@
 
 </body>
 </html>
-
