@@ -3,318 +3,295 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dental Cookbook | مرجع السنة الثانية المتقدم</title>
+    <title>Dental Cookbook | الدليل التطبيقي التفاعلي - السنة الثانية</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <meta name="theme-color" content="#0f172a">
     <style>
         body { font-family: system-ui, -apple-system, sans-serif; background-color: #0f172a; color: #f8fafc; }
-        .card { background-color: #1e293b; border: 1px solid #334155; border-radius: 0.75rem; }
-        .step-badge { color: white; border-radius: 9999px; padding: 0.25rem 0.75rem; font-weight: bold; font-size: 0.75rem; }
+        .card { background-color: #1e293b; border: 1px solid #334155; border-radius: 0.875rem; }
+        .tab-btn { transition: all 0.2s ease; }
+        .tab-btn.active { background-color: #0284c7; color: white; border-color: #38bdf8; }
+        details summary::-webkit-details-marker { display:none; }
     </style>
 </head>
-<body class="pb-16">
+<body class="pb-20">
 
-    <!-- Header -->
-    <header class="bg-slate-900 border-b border-slate-800 p-4 sticky top-0 z-50 shadow-md">
+    <!-- Header App Bar -->
+    <header class="bg-slate-900/90 backdrop-blur border-b border-slate-800 p-4 sticky top-0 z-50 shadow-lg">
         <div class="max-w-md mx-auto flex justify-between items-center">
-            <div>
-                <h1 class="text-xl font-bold text-sky-400">Dental Cookbook 🦷</h1>
-                <p class="text-xs text-slate-400">المرجع الأكاديمي الشامل - السنة الثانية</p>
+            <div class="flex items-center gap-2">
+                <div class="w-9 h-9 rounded-xl bg-sky-500/20 border border-sky-400/40 flex items-center justify-center text-sky-400 font-bold text-lg">🦷</div>
+                <div>
+                    <h1 class="text-base font-bold text-white leading-tight">Dental Cookbook</h1>
+                    <p class="text-[10px] text-sky-400 font-medium">دليل المختبر الأكاديمي - السنة الثانية</p>
+                </div>
             </div>
-            <span class="text-xs bg-emerald-500/20 text-emerald-400 px-2.5 py-1 rounded-full border border-emerald-500/30">المستوى المتقدم</span>
+            <span class="text-[10px] bg-emerald-500/20 text-emerald-400 px-2 py-1 rounded-full border border-emerald-500/30 font-medium">تطبيق جاهز</span>
         </div>
     </header>
 
-    <!-- Main Content -->
-    <main class="max-w-md mx-auto p-4 space-y-6">
+    <main class="max-w-md mx-auto p-4 space-y-5">
 
-        <!-- Search Bar -->
+        <!-- Instant Search Input -->
         <div class="relative">
-            <input type="text" id="searchInput" onkeyup="filterCards()" placeholder="🔍 ابحث عن درس، مادة، قياس بالمليمتر، أو سلك..." class="w-full bg-slate-800 border border-slate-700 rounded-lg py-2.5 px-4 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-sky-500 shadow-inner">
+            <input type="text" id="searchInput" onkeyup="filterCards()" placeholder="🔍 ابحث عن درس، سلك (0.7mm)، شمع، أو عيوب..." class="w-full bg-slate-800/90 border border-slate-700 rounded-xl py-3 px-4 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-sky-500 shadow-inner">
         </div>
 
-        <!-- LAB CALCULATOR TOOL -->
-        <section class="card p-4 bg-slate-800/90 border-sky-500/30 space-y-3">
-            <div class="flex items-center justify-between border-b border-slate-700 pb-2">
-                <h3 class="text-xs font-bold text-sky-300">🧮 حاسبة المعمل السريعة (النسب والتناسب)</h3>
-                <span class="text-[10px] bg-sky-900/50 text-sky-300 px-2 py-0.5 rounded">أداة دقيقة</span>
-            </div>
-            <div class="grid grid-cols-2 gap-2 text-xs">
-                <div>
-                    <label class="text-slate-400 block mb-1">المادة المطلوب خلطها:</label>
-                    <select id="materialType" onchange="calculateRatio()" class="w-full bg-slate-900 border border-slate-700 rounded p-1.5 text-white">
-                        <option value="acrylic">أكريل حراري (Heat-Cured)</option>
-                        <option value="stone">جبس حجر ممتازة (Class IV)</option>
-                        <option value="investment">مادة الكسوة (Investment)</option>
-                    </select>
+        <!-- Filter Categories (Tabs) -->
+        <div class="flex gap-1.5 overflow-x-auto pb-1 text-xs no-scrollbar">
+            <button onclick="filterCategory('all')" class="tab-btn active px-3.5 py-1.5 rounded-lg border border-slate-700 bg-slate-800 text-slate-300 font-medium whitespace-nowrap">الكل 📚</button>
+            <button onclick="filterCategory('ortho')" class="tab-btn px-3.5 py-1.5 rounded-lg border border-slate-700 bg-slate-800 text-slate-300 font-medium whitespace-nowrap">التقويم 📐</button>
+            <button onclick="filterCategory('fixed')" class="tab-btn px-3.5 py-1.5 rounded-lg border border-slate-700 bg-slate-800 text-slate-300 font-medium whitespace-nowrap">ثابتة 👑</button>
+            <button onclick="filterCategory('removable')" class="tab-btn px-3.5 py-1.5 rounded-lg border border-slate-700 bg-slate-800 text-slate-300 font-medium whitespace-nowrap">متحركة 🦿</button>
+        </div>
+
+        <!-- LAB CALCULATOR TOOL TOOLKIT -->
+        <details class="card bg-slate-800/60 border-sky-500/30 overflow-hidden">
+            <summary class="p-3.5 flex justify-between items-center cursor-pointer bg-slate-800/90">
+                <div class="flex items-center gap-2">
+                    <span class="text-sm">🧮</span>
+                    <span class="text-xs font-bold text-sky-300">حاسبة نسب المواد والخلط السريعة</span>
                 </div>
-                <div>
-                    <label class="text-slate-400 block mb-1">وزن البودرة (جرام):</label>
-                    <input type="number" id="powderWeight" value="30" oninput="calculateRatio()" class="w-full bg-slate-900 border border-slate-700 rounded p-1.5 text-white">
+                <span class="text-[10px] bg-sky-900/60 text-sky-300 px-2 py-0.5 rounded border border-sky-500/30">افتح الحاسبة</span>
+            </summary>
+            <div class="p-4 border-t border-slate-700/60 space-y-3 bg-slate-900/40">
+                <div class="grid grid-cols-2 gap-2 text-xs">
+                    <div>
+                        <label class="text-slate-400 block mb-1">المادة المطلوب خلطها:</label>
+                        <select id="materialType" onchange="calculateRatio()" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2 text-white">
+                            <option value="acrylic">أكريل حراري (Heat-Cured)</option>
+                            <option value="stone">جبس حجر ممتازة (Class IV)</option>
+                            <option value="investment">مادة الكسوة (Investment)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="text-slate-400 block mb-1">وزن البودرة (جرام):</label>
+                        <input type="number" id="powderWeight" value="30" oninput="calculateRatio()" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2 text-white">
+                    </div>
                 </div>
-            </div>
-            <div id="calcResult" class="bg-slate-900/80 p-2 rounded text-xs text-emerald-400 border border-emerald-500/20 font-mono text-center">
-                المونومر المطلوبة: 10.0 ml (نسبة 1:3)
-            </div>
-        </section>
-
-        <!-- MODULE 1: ANTERIOR CROSSBITE CORRECTION -->
-        <section class="card p-5 space-y-4 lesson-card">
-            <div class="flex justify-between items-center border-b border-slate-700 pb-3">
-                <span class="step-badge bg-sky-600">درس 1 • تقويم</span>
-                <span class="text-xs text-sky-400 font-mono">Crossbite Correction</span>
-            </div>
-
-            <h3 class="text-lg font-bold text-white">1. جهاز تصحيح العضة المعكوسة (Anterior Crossbite Appliance)</h3>
-            <p class="text-xs text-slate-300 leading-relaxed">
-                تصميم جهاز تقويمي متحرك لعلاج العضة المعكوسة الأمامية لسن واحد أو أكثر مع رفع العضة الخلفية لتفكيك الإطباق.
-            </p>
-
-            <div class="bg-slate-900/60 p-3 rounded-lg border border-slate-800 space-y-1">
-                <div class="text-xs font-bold text-sky-300">🛠️ الأدوات والأسلاك المستخدمة:</div>
-                <ul class="text-xs text-slate-300 list-disc list-inside space-y-0.5">
-                    <li>نابض Z-Spring بقطر **0.5 mm** للثنايا أو **0.6 mm** للأنياب.</li>
-                    <li>ضوامر أدمز (Adams Clasps) بقطر **0.7 mm** على الأرحاء.</li>
-                    <li>صفيحة رفع العضة الخلفية (**Posterior Bite Plane**) بسماكة **2.0 - 3.0 mm**.</li>
-                </ul>
-            </div>
-
-            <div class="space-y-3 pt-1">
-                <div class="text-xs font-bold text-amber-400 uppercase">خطوات التصنيع المعملي:</div>
-                <div class="bg-slate-800/80 p-3 rounded-lg border-l-2 border-sky-400 text-xs space-y-1">
-                    <div class="font-bold text-white">أ. تشكيل النابض وتغطية الحلزونات:</div>
-                    <p class="text-slate-300">اصنعي النابض المزدوج بحيث يستقر ذراعه العامل على الحديبة اللسانية (Cingulum) للسن المنحرف. غطي الحلزونين بالشمع العازل لمنع تسرب الأكريل.</p>
-                </div>
-                <div class="bg-slate-800/80 p-3 rounded-lg border-l-2 border-sky-400 text-xs space-y-1">
-                    <div class="font-bold text-white">ب. بناء صفيحة رفع العضة (Bite Plane):</div>
-                    <p class="text-slate-300">مدي الأكريل على الأسطح الطاحنة للأرحاء الخلفية بسماكة تكفي لفتح العضة الأمامية وتفادي التداخل (Disocclusion) بحدود **1.0 mm** بين القواطع.</p>
+                <div id="calcResult" class="bg-slate-900 p-2.5 rounded-lg text-xs text-emerald-400 border border-emerald-500/30 font-mono text-center font-semibold">
+                    المونومر المطلوبة: 10.0 ml (نسبة 1:3)
                 </div>
             </div>
+        </details>
 
-            <div class="bg-rose-500/10 border border-rose-500/30 p-3 rounded-lg text-xs text-rose-300 space-y-1">
-                <div class="font-bold">⚠️ الوقاية من الأخطاء:</div>
-                <p>إذا لم يتم بناء صفيحة رفع العضة بسماكة كافية، لن يتحرك السن للأمام بسبب إعاقة القواطع السفلى ومقاومتها الميكانيكية.</p>
-            </div>
-        </section>
+        <!-- LESSON 1: ADAMS CLASP -->
+        <div class="lesson-card ortho card overflow-hidden">
+            <details class="group" open>
+                <summary class="p-4 flex justify-between items-center cursor-pointer bg-slate-800/90 group-open:border-b border-slate-700/60">
+                    <div class="space-y-1">
+                        <div class="flex items-center gap-2">
+                            <span class="bg-sky-500/20 text-sky-400 text-[10px] font-bold px-2 py-0.5 rounded border border-sky-500/30">تقويم</span>
+                            <h2 class="text-sm font-bold text-white">1. ثني ضامر أدمز (Adams Clasp)</h2>
+                        </div>
+                        <p class="text-[11px] text-slate-400">عنصر التثبيت الأساسي للرحى الأولى</p>
+                    </div>
+                    <span class="text-slate-400 text-xs group-open:rotate-180 transition-transform">▼</span>
+                </summary>
+                <div class="p-4 space-y-4">
+                    <!-- SVG Diagram -->
+                    <div class="bg-slate-900/80 p-3 rounded-xl border border-slate-800 flex flex-col items-center">
+                        <svg class="w-full h-28" viewBox="0 0 200 80" fill="none">
+                            <!-- Tooth Contour -->
+                            <path d="M 40 20 Q 100 10 160 20 Q 170 50 160 70 Q 100 75 40 70 Q 30 50 40 20 Z" fill="#334155" stroke="#64748b" stroke-width="1.5" />
+                            <!-- Adams Wire -->
+                            <path d="M 20 65 L 55 25 L 145 25 L 180 65" stroke="#38bdf8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                            <!-- Arrowheads -->
+                            <circle cx="55" cy="25" r="4" fill="#f59e0b" />
+                            <circle cx="145" cy="25" r="4" fill="#f59e0b" />
+                            <!-- Annotations -->
+                            <text x="100" y="20" fill="#38bdf8" text-anchor="middle" font-size="9" font-weight="bold">Bridge (5-6mm)</text>
+                            <text x="100" y="50" fill="#cbd5e1" text-anchor="middle" font-size="9">Arrowheads at 45°</text>
+                        </svg>
+                        <span class="text-[10px] text-slate-400 mt-1">مخطط ثني سلك أدمز وتحديد زوايا رأس السهم (Arrowheads)</span>
+                    </div>
 
-        <!-- MODULE 2: TEETH ARTICULATION & SETTING -->
-        <section class="card p-5 space-y-4 lesson-card">
-            <div class="flex justify-between items-center border-b border-slate-700 pb-3">
-                <span class="step-badge bg-emerald-600">درس 2 • تعويضات متحركة</span>
-                <span class="text-xs text-emerald-400 font-mono">Teeth Articulation</span>
-            </div>
+                    <div class="grid grid-cols-2 gap-2 text-xs">
+                        <div class="bg-slate-900/50 p-2.5 rounded-lg border border-slate-800">
+                            <span class="text-slate-400 block text-[10px]">قطر السلك</span>
+                            <span class="text-sky-300 font-bold">0.7 mm Stainless</span>
+                        </div>
+                        <div class="bg-slate-900/50 p-2.5 rounded-lg border border-slate-800">
+                            <span class="text-slate-400 block text-[10px]">طول الجسرة</span>
+                            <span class="text-amber-300 font-bold">5.0 - 6.0 mm</span>
+                        </div>
+                    </div>
 
-            <h3 class="text-lg font-bold text-white">2. التنضيد المعقد والإطباق المتوازن (Balanced Articulation)</h3>
-            <p class="text-xs text-slate-300 leading-relaxed">
-                قواعد صف الأسنان الاصطناعية على المطبق المفصلي للوصول إلى إطباق متوازن هندسياً يمنع انقلاب الطقم الكامل.
-            </p>
+                    <div class="space-y-2 text-xs">
+                        <div class="font-bold text-amber-400">خطوات التنفيذ المعملية:</div>
+                        <ol class="list-decimal list-inside text-slate-300 space-y-1 leading-relaxed">
+                            <li>قص قطعة سلك بطول **8 cm** وتحديد منتصفها.</li>
+                            <li>ثني الجسرة العرضية القائمة بقطر 5-6 mm.</li>
+                            <li>ثني عروتي رأس السهم (Arrowheads) بزاوية **45°** للداخل.</li>
+                            <li>توجيه الذراعين عبر نقطة التماس نحو اللسان/الحنك مع ترك **0.5 mm** عن اللثة.</li>
+                        </ol>
+                    </div>
 
-            <div class="bg-slate-900/60 p-3 rounded-lg border border-slate-800 space-y-1">
-                <div class="text-xs font-bold text-emerald-300">🛠️ القواعد والمحددات القياسية:</div>
-                <ul class="text-xs text-slate-300 list-disc list-inside space-y-0.5">
-                    <li>منحنى شبي (Curve of Spee): ارتفاع الضاحك الثاني والرحى الأولى للأعلى بـ **1.0 - 1.5 mm**.</li>
-                    <li>منحنى ويلسون (Curve of Wilson): ميلان حدبات الأرحاء السفلى لسانياً.</li>
-                    <li>تداخل الحدبات (Intercuspation): حدبة الضاحك العلوي الدهليزية بين الضاحكين السفليين.</li>
-                </ul>
-            </div>
-
-            <div class="space-y-3 pt-1">
-                <div class="text-xs font-bold text-amber-400 uppercase">خطوات العمل المعملي:</div>
-                <div class="bg-slate-800/80 p-3 rounded-lg border-l-2 border-emerald-400 text-xs space-y-1">
-                    <div class="font-bold text-white">أ. تنضيد الأسنان الأمامية السفلى:</div>
-                    <p class="text-slate-300">اثبتي القاطع المركزي المائل لسانياً بعمر 90°، مع ضبط البروز (Overjet) والغطس (Overbite) بمقدار **1.5 mm** متناسق مع الفك العلوي.</p>
+                    <div class="bg-rose-500/10 border border-rose-500/30 p-2.5 rounded-lg text-xs text-rose-300">
+                        <strong>⚠️ تجنبي الخطأ:</strong> إعادة تعديل الثني بفس المكان أكثر من مرتين تضعف السلك وتؤدي لانكساره.
+                    </div>
                 </div>
-                <div class="bg-slate-800/80 p-3 rounded-lg border-l-2 border-emerald-400 text-xs space-y-1">
-                    <div class="font-bold text-white">ب. تنضيد الأرحاء وتقاطع المزاريب:</div>
-                    <p class="text-slate-300">تأكدي من استقرار الحدبة الدهليزية الإنسية للرحى الأولى العلوية في الميزاب الدهليزي للرحى الأولى السفلى (علاقة صنف أول - Class I).</p>
+            </details>
+        </div>
+
+        <!-- LESSON 2: FIXED CROWN WAX-UP -->
+        <div class="lesson-card fixed card overflow-hidden">
+            <details class="group">
+                <summary class="p-4 flex justify-between items-center cursor-pointer bg-slate-800/90 group-open:border-b border-slate-700/60">
+                    <div class="space-y-1">
+                        <div class="flex items-center gap-2">
+                            <span class="bg-amber-500/20 text-amber-400 text-[10px] font-bold px-2 py-0.5 rounded border border-amber-500/30">تعويضات ثابتة</span>
+                            <h2 class="text-sm font-bold text-white">2. التشميع التشخيصي والسبك (Wax-up & Sprue)</h2>
+                        </div>
+                        <p class="text-[11px] text-slate-400">بناء التاج الكامل وتثبيت قناة الصهر</p>
+                    </div>
+                    <span class="text-slate-400 text-xs group-open:rotate-180 transition-transform">▼</span>
+                </summary>
+                <div class="p-4 space-y-4">
+                    <!-- SVG Diagram -->
+                    <div class="bg-slate-900/80 p-3 rounded-xl border border-slate-800 flex flex-col items-center">
+                        <svg class="w-full h-28" viewBox="0 0 200 90" fill="none">
+                            <!-- Die Base -->
+                            <rect x="70" y="65" width="60" height="20" rx="3" fill="#475569" />
+                            <!-- Wax Crown -->
+                            <path d="M 75 65 C 70 35, 130 35, 125 65 Z" fill="#10b981" opacity="0.8" stroke="#34d399" stroke-width="1.5"/>
+                            <!-- Sprue Tube -->
+                            <path d="M 115 42 L 155 15" stroke="#f59e0b" stroke-width="5" stroke-linecap="round"/>
+                            <!-- Angle indicator -->
+                            <path d="M 115 42 L 140 42" stroke="#64748b" stroke-dasharray="2 2" stroke-width="1"/>
+                            <text x="135" y="32" fill="#f59e0b" font-size="9" font-weight="bold">45° Sprue Angle</text>
+                            <text x="100" y="80" fill="#f8fafc" text-anchor="middle" font-size="8">Prepared Die Base</text>
+                        </svg>
+                        <span class="text-[10px] text-slate-400 mt-1">مخطط تثبيت قناة التغذية الشمعية (Sprue) بزاوية 45°</span>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-2 text-xs">
+                        <div class="bg-slate-900/50 p-2.5 rounded-lg border border-slate-800">
+                            <span class="text-slate-400 block text-[10px]">قطر الـ Sprue</span>
+                            <span class="text-amber-300 font-bold">2.5 - 3.0 mm</span>
+                        </div>
+                        <div class="bg-slate-900/50 p-2.5 rounded-lg border border-slate-800">
+                            <span class="text-slate-400 block text-[10px]">سماكة الـ Spacer</span>
+                            <span class="text-emerald-300 font-bold">25 Micron</span>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2 text-xs">
+                        <div class="font-bold text-amber-400">خطوات التنفيذ المعملية:</div>
+                        <ol class="list-decimal list-inside text-slate-300 space-y-1 leading-relaxed">
+                            <li>طلاء الـ Die بعازل Spacer بترك **1 mm** بعيداً عن حافة الإنهاء.</li>
+                            <li>استخدام الشمع الأخضر الأمريكي لبناء وتشكيل الحدبات.</li>
+                            <li>تثبيت الـ Sprue بزاوية **45°** على أكبر حدبة غير عاملة.</li>
+                        </ol>
+                    </div>
+
+                    <div class="bg-rose-500/10 border border-rose-500/30 p-2.5 rounded-lg text-xs text-rose-300">
+                        <strong>⚠️ تجنبي الخطأ:</strong> لا تضعي الـ Sprue بزاوية قائمة 90° لتفادي الفقاعات الناتجة عن اضطراب دخول المعدن (Turbulence).
+                    </div>
                 </div>
-            </div>
+            </details>
+        </div>
 
-            <div class="bg-rose-500/10 border border-rose-500/30 p-3 rounded-lg text-xs text-rose-300 space-y-1">
-                <div class="font-bold">⚠️ الوقاية من الأخطاء:</div>
-                <p>صف الأسنان الخلفية بعيداً عن منتصف ذروة السنخ (Ridge Crest) يسبب عدم ثبات الطقم الكامل وسقوطه أثناء عملية التقطيع والمضغ.</p>
-            </div>
-        </section>
+        <!-- LESSON 3: TEETH ARTICULATION -->
+        <div class="lesson-card removable card overflow-hidden">
+            <details class="group">
+                <summary class="p-4 flex justify-between items-center cursor-pointer bg-slate-800/90 group-open:border-b border-slate-700/60">
+                    <div class="space-y-1">
+                        <div class="flex items-center gap-2">
+                            <span class="bg-emerald-500/20 text-emerald-400 text-[10px] font-bold px-2 py-0.5 rounded border border-emerald-500/30">تعويضات متحركة</span>
+                            <h2 class="text-sm font-bold text-white">3. التنضيد وقواعد الإطباق (Teeth Setting)</h2>
+                        </div>
+                        <p class="text-[11px] text-slate-400">تنضيد الأسنان الكامل وتحقيق منحنى شبي</p>
+                    </div>
+                    <span class="text-slate-400 text-xs group-open:rotate-180 transition-transform">▼</span>
+                </summary>
+                <div class="p-4 space-y-4">
+                    <!-- SVG Diagram -->
+                    <div class="bg-slate-900/80 p-3 rounded-xl border border-slate-800 flex flex-col items-center">
+                        <svg class="w-full h-24" viewBox="0 0 200 70" fill="none">
+                            <!-- Occlusal Plane Line -->
+                            <line x1="20" y1="50" x2="180" y2="50" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="3 3"/>
+                            <!-- Central Incisor -->
+                            <rect x="30" y="20" width="15" height="30" fill="#f8fafc" rx="2"/>
+                            <!-- Lateral Incisor (Elevated 0.5mm) -->
+                            <rect x="50" y="18" width="13" height="28" fill="#f8fafc" rx="2"/>
+                            <!-- Canine -->
+                            <rect x="68" y="20" width="15" height="30" fill="#f8fafc" rx="2"/>
+                            <!-- Curve Arrow -->
+                            <path d="M 90 50 Q 130 55 170 38" stroke="#38bdf8" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+                            <text x="130" y="25" fill="#38bdf8" font-size="9" font-weight="bold">Curve of Spee</text>
+                            <text x="100" y="63" fill="#cbd5e1" text-anchor="middle" font-size="8">Occlusal Plane Alignment</text>
+                        </svg>
+                        <span class="text-[10px] text-slate-400 mt-1">مخطط ارتفاع الأسنان الأمامية وتشكيل منحنى شبي الإطباقي</span>
+                    </div>
 
-        <!-- MODULE 3: CAST PARTIAL DENTURE FRAMEWORK -->
-        <section class="card p-5 space-y-4 lesson-card">
-            <div class="flex justify-between items-center border-b border-slate-700 pb-3">
-                <span class="step-badge bg-purple-600">درس 3 • الهيكلية (أسكلت)</span>
-                <span class="text-xs text-purple-400 font-mono">RPD Framework Wax-up</span>
-            </div>
+                    <div class="grid grid-cols-2 gap-2 text-xs">
+                        <div class="bg-slate-900/50 p-2.5 rounded-lg border border-slate-800">
+                            <span class="text-slate-400 block text-[10px]">البروز (Overjet)</span>
+                            <span class="text-emerald-300 font-bold">1.0 - 1.5 mm</span>
+                        </div>
+                        <div class="bg-slate-900/50 p-2.5 rounded-lg border border-slate-800">
+                            <span class="text-slate-400 block text-[10px]">ارتفاع الرباعية</span>
+                            <span class="text-sky-300 font-bold">0.5 mm فوق المستوي</span>
+                        </div>
+                    </div>
 
-            <h3 class="text-lg font-bold text-white">3. تشميع الهيكل المعدني للتعويض الجزئي (Cast Framework)</h3>
-            <p class="text-xs text-slate-300 leading-relaxed">
-                تصميم وتشميع جهاز الأسكلت (Co-Cr Partial Denture) على مثال العمل الحراري بعد التخطيط بالمرسام (Surveying).
-            </p>
+                    <div class="space-y-2 text-xs">
+                        <div class="font-bold text-amber-400">خطوات العمل المعملية:</div>
+                        <ol class="list-decimal list-inside text-slate-300 space-y-1 leading-relaxed">
+                            <li>صف القاطعين المركزيين بملامسة مستوي العضة والخط المتوسط.</li>
+                            <li>رفع القواطع الجانبية بـ **0.5 mm** عن المستوي لإعطاء شكل طبيعي.</li>
+                            <li>ضبط استقرار الحدبة الدهليزية للرحى الأولى العلوية مع ميزاب الرحى السفلى (Class I).</li>
+                        </ol>
+                    </div>
 
-            <div class="bg-slate-900/60 p-3 rounded-lg border border-slate-800 space-y-1">
-                <div class="text-xs font-bold text-purple-300">🛠️ الأشكال والمكونات الجاهزة:</div>
-                <ul class="text-xs text-slate-300 list-disc list-inside space-y-0.5">
-                    <li>الشريط الحنكي الرئيسي (Major Connector): شريط عريض بسماكة **0.5 - 0.8 mm**.</li>
-                    <li>العارضة اللسانية (Lingual Bar): مقطع نصف إجاصي بسماكة **2.0 mm** وارتفاع **4.0 mm**.</li>
-                    <li>المهميز الإطباقي (Occlusal Rest): بسماكة **1.5 mm** عند حافة الميزاب.</li>
-                </ul>
-            </div>
-
-            <div class="space-y-3 pt-1">
-                <div class="text-xs font-bold text-amber-400 uppercase">خطوات العمل المعملي:</div>
-                <div class="bg-slate-800/80 p-3 rounded-lg border-l-2 border-purple-400 text-xs space-y-1">
-                    <div class="font-bold text-white">أ. حفر التحزيز (Beading) والتعزيل:</div>
-                    <p class="text-slate-300">احفري خط التحزيز بعمق **0.5 mm** على حدود الشريط الحنكي لمنع تسرب الأطعمة، وسدي منطقة الغاطس (Undercut) بشمع التثبيت.</p>
+                    <div class="bg-rose-500/10 border border-rose-500/30 p-2.5 rounded-lg text-xs text-rose-300">
+                        <strong>⚠️ تجنبي الخطأ:</strong> لا تصفّي الأسنان الخلفية خارج نطاق ذروة العظم المتبقي لمنع انقلاب الطقم.
+                    </div>
                 </div>
-                <div class="bg-slate-800/80 p-3 rounded-lg border-l-2 border-purple-400 text-xs space-y-1">
-                    <div class="font-bold text-white">ب. تكييف أشكال الشمع الجاهزة (Wax Patterns):</div>
-                    <p class="text-slate-300">التقطي ضوامر الأكرز (Akers Clasps) والشريط الرئيسي وضعيها فوق السائل الملتصق (Tacky Liquid) واحمضي الحواف بالشمع السائل.</p>
+            </details>
+        </div>
+
+        <!-- LESSON 4: CROSSBITE APPLIANCE -->
+        <div class="lesson-card ortho card overflow-hidden">
+            <details class="group">
+                <summary class="p-4 flex justify-between items-center cursor-pointer bg-slate-800/90 group-open:border-b border-slate-700/60">
+                    <div class="space-y-1">
+                        <div class="flex items-center gap-2">
+                            <span class="bg-sky-500/20 text-sky-400 text-[10px] font-bold px-2 py-0.5 rounded border border-sky-500/30">تقويم</span>
+                            <h2 class="text-sm font-bold text-white">4. جهاز العضة المعكوسة (Crossbite Appliance)</h2>
+                        </div>
+                        <p class="text-[11px] text-slate-400">تصميم صفيحة رفع العضة والنابض المزدوج</p>
+                    </div>
+                    <span class="text-slate-400 text-xs group-open:rotate-180 transition-transform">▼</span>
+                </summary>
+                <div class="p-4 space-y-4">
+                    <div class="grid grid-cols-2 gap-2 text-xs">
+                        <div class="bg-slate-900/50 p-2.5 rounded-lg border border-slate-800">
+                            <span class="text-slate-400 block text-[10px]">قطر النابض (Z-Spring)</span>
+                            <span class="text-sky-300 font-bold">0.5 mm Spring Wire</span>
+                        </div>
+                        <div class="bg-slate-900/50 p-2.5 rounded-lg border border-slate-800">
+                            <span class="text-slate-400 block text-[10px]">سماكة صفيحة الرفع</span>
+                            <span class="text-amber-300 font-bold">2.0 - 3.0 mm</span>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2 text-xs">
+                        <div class="font-bold text-amber-400">خطوات التصنيع:</div>
+                        <ol class="list-decimal list-inside text-slate-300 space-y-1 leading-relaxed">
+                            <li>تشكيل النابض المزدوج وتغطية الحلزونات بالشمع لمنع انغماسها بالأكريل.</li>
+                            <li>بناء صفيحة رفع العضة الخلفية (**Posterior Bite Plane**) بفرز الأكريل على الأسطح الطاحنة.</li>
+                        </ol>
+                    </div>
+
+                    <div class="bg-rose-500/10 border border-rose-500/30 p-2.5 rounded-lg text-xs text-rose-300">
+                        <strong>⚠️ تجنبي الخطأ:</strong> عدم رفع العضة بشكل كافٍ يمنع السن المنحرف من الحركة بسبب اعتراض القواطع السفلى.
+                    </div>
                 </div>
-            </div>
+            </details>
+        </div>
 
-            <div class="bg-rose-500/10 border border-rose-500/30 p-3 rounded-lg text-xs text-rose-300 space-y-1">
-                <div class="font-bold">⚠️ الوقاية من الأخطاء:</div>
-                <p>تجنبي ضغط الشمع باليد بقوة أثناء التكييف لتفادي تغير سماكته، مما يؤدي لضعف الهيكل وانكساره تحت الضغط الإطباقي.</p>
-            </div>
-        </section>
-
-        <!-- MODULE 4: ORTHODONTICS - ADAMS CLASP -->
-        <section class="card p-5 space-y-4 lesson-card">
-            <div class="flex justify-between items-center border-b border-slate-700 pb-3">
-                <span class="step-badge bg-sky-600">درس 4 • تقويم</span>
-                <span class="text-xs text-sky-400 font-mono">Adams Clasp</span>
-            </div>
-
-            <h3 class="text-lg font-bold text-white">4. ثني ضامر أدمز الدقيق (Adams Clasp Bending)</h3>
-            <p class="text-xs text-slate-300 leading-relaxed">
-                عنصر التثبيت الأساسي للأجهزة التقويمية المتحركة اعتماداً على نتوءات الملاصق للرحى الأولى.
-            </p>
-
-            <div class="bg-slate-900/60 p-3 rounded-lg border border-slate-800 space-y-1">
-                <div class="text-xs font-bold text-sky-300">🛠️ القياسات والأدوات:</div>
-                <ul class="text-xs text-slate-300 list-disc list-inside space-y-0.5">
-                    <li>سلك ستانلس ستيل قطر **0.7 mm**.</li>
-                    <li>عرض الجسرة العرضية (Bridge): **5 - 6 mm**.</li>
-                    <li>زاوية ثني العروتين: **45°** باتجاه ذروة الجذر.</li>
-                </ul>
-            </div>
-
-            <div class="space-y-3 pt-1">
-                <div class="text-xs font-bold text-amber-400 uppercase">خطوات العمل المعملي:</div>
-                <div class="bg-slate-800/80 p-3 rounded-lg border-l-2 border-sky-400 text-xs space-y-1">
-                    <div class="font-bold text-white">أ. الجسرة والعروتان:</div>
-                    <p class="text-slate-300">اصنعي جسرة بعرض 2/3 السطح الدهليزي للسن، ثم اثنِ طرفي السلك للخلف بزاوية حادة 45° لتشكيل رأسي السهم (Arrowheads).</p>
-                </div>
-            </div>
-
-            <div class="bg-rose-500/10 border border-rose-500/30 p-3 rounded-lg text-xs text-rose-300 space-y-1">
-                <div class="font-bold">⚠️ الوقاية من الأخطاء:</div>
-                <p>تجنب تعديل مكان الثني في السلك أكثر من مرتين لمنع الإجهاد المعدني (Work Hardening) وانكسار السلك.</p>
-            </div>
-        </section>
-
-        <!-- MODULE 5: FIXED PROSTHODONTICS - CROWN WAX-UP -->
-        <section class="card p-5 space-y-4 lesson-card">
-            <div class="flex justify-between items-center border-b border-slate-700 pb-3">
-                <span class="step-badge bg-amber-600">درس 5 • تعويضات ثابتة</span>
-                <span class="text-xs text-amber-400 font-mono">Crown Wax-up</span>
-            </div>
-
-            <h3 class="text-lg font-bold text-white">5. التشميع التشخيصي للتاج الكامل (Full Crown Wax-up)</h3>
-            <p class="text-xs text-slate-300 leading-relaxed">
-                تشكيل المعالم التشريحية للتاج المعدني وتجهيز قناة صهر المعدن (Sprue).
-            </p>
-
-            <div class="bg-slate-900/60 p-3 rounded-lg border border-slate-800 space-y-1">
-                <div class="text-xs font-bold text-amber-300">🛠️ المواد والتفاصيل:</div>
-                <ul class="text-xs text-slate-300 list-disc list-inside space-y-0.5">
-                    <li>طلاء Die Spacer: **25 micron** عدا منطقة حافة الإنهاء.</li>
-                    <li>سلك تغذية شمعي (Sprue Wax): قطر **2.5 - 3.0 mm**.</li>
-                    <li>زاوية تثبيت الـ Sprue: **45°** على أكبر حدبة غير عاملة.</li>
-                </ul>
-            </div>
-
-            <div class="space-y-3 pt-1">
-                <div class="text-xs font-bold text-amber-400 uppercase">خطوات العمل المعملي:</div>
-                <div class="bg-slate-800/80 p-3 rounded-lg border-l-2 border-amber-400 text-xs space-y-1">
-                    <div class="font-bold text-white">أ. البناء الشمعي وتثبيت التغذية:</div>
-                    <p class="text-slate-300">استخدمي الشمع الأخضر الصلب لبناء الحدبات والمزاريب، ثم ثبتي الـ Sprue بزاوية 45° لتسهيل دخول المعدن المنصهر بانسابية.</p>
-                </div>
-            </div>
-
-            <div class="bg-rose-500/10 border border-rose-500/30 p-3 rounded-lg text-xs text-rose-300 space-y-1">
-                <div class="font-bold">⚠️ الوقاية من الأخطاء:</div>
-                <p>لا تضعي الـ Sprue بزاوية قائمة 90° لتجنب الاضطراب الغازي (Turbulence) وظهور فقاعات داخل التاج.</p>
-            </div>
-        </section>
-
-        <!-- MODULE 6: FLASKING & ACRYLIC PROCESSING -->
-        <section class="card p-5 space-y-4 lesson-card">
-            <div class="flex justify-between items-center border-b border-slate-700 pb-3">
-                <span class="step-badge bg-emerald-600">درس 6 • تعويضات متحركة</span>
-                <span class="text-xs text-emerald-400 font-mono">Flasking & Acrylic</span>
-            </div>
-
-            <h3 class="text-lg font-bold text-white">6. التفليد والطبخ الحراري للأكريل (Acrylic Processing)</h3>
-            <p class="text-xs text-slate-300 leading-relaxed">
-                تحويل القاعدة الشمعية إلى أكريل حراري متبلمر عبر خطوات التفليد والغلي والكبس.
-            </p>
-
-            <div class="bg-slate-900/60 p-3 rounded-lg border border-slate-800 space-y-1">
-                <div class="text-xs font-bold text-emerald-300">🛠️ النسب والمعايير:</div>
-                <ul class="text-xs text-slate-300 list-disc list-inside space-y-0.5">
-                    <li>نسبة الخلط: **1 سائل : 3 بودرة** حجماً (Dough Stage).</li>
-                    <li>حرارة البلمرة: **74°C لمدة 8 ساعات** أو **100°C لمدة ساعة**.</li>
-                </ul>
-            </div>
-
-            <div class="space-y-3 pt-1">
-                <div class="text-xs font-bold text-amber-400 uppercase">خطوات العمل المعملي:</div>
-                <div class="bg-slate-800/80 p-3 rounded-lg border-l-2 border-emerald-400 text-xs space-y-1">
-                    <div class="font-bold text-white">أ. التعبئة والكبس الهيدروليكي:</div>
-                    <p class="text-slate-300">اعبئي الأكريل في مرحلة العجينة (Dough Stage)، واكبسي البوثقة هيدروليكياً مع استخدام ورق السيلوفان العازل لتفادي الالتصاق.</p>
-                </div>
-            </div>
-
-            <div class="bg-rose-500/10 border border-rose-500/30 p-3 rounded-lg text-xs text-rose-300 space-y-1">
-                <div class="font-bold">⚠️ الوقاية من الأخطاء:</div>
-                <p>تجنبي رفع حرارة الماء بسرعة فوق 100°C في البداية لتفادي تبخر المونومر وظهور المسامية الغازية (Gaseous Porosity).</p>
-            </div>
-        </section>
-
-    </main>
-
-    <script>
-        // Search Filter Function
-        function filterCards() {
-            let input = document.getElementById('searchInput').value.toLowerCase();
-            let cards = document.getElementsByClassName('lesson-card');
-
-            for (let i = 0; i < cards.length; i++) {
-                let text = cards[i].innerText.toLowerCase();
-                if (text.includes(input)) {
-                    cards[i].style.display = "block";
-                } else {
-                    cards[i].style.display = "none";
-                }
-            }
-        }
-
-        // Lab Ratio Calculator Function
-        function calculateRatio() {
-            let type = document.getElementById('materialType').value;
-            let powder = parseFloat(document.getElementById('powderWeight').value) || 0;
-            let resultBox = document.getElementById('calcResult');
-
-            if (type === 'acrylic') {
-                let liquid = (powder / 3).toFixed(1);
-                resultBox.innerText = `السائل المطلوب: ${liquid} ml (نسبة 1:3 حجماً)`;
-            } else if (type === 'stone') {
-                let liquid = (powder * 0.23).toFixed(1);
-                resultBox.innerText = `الماء المقطر المطلوب: ${liquid} ml (نسبة W/P = 0.23)`;
-            } else if (type === 'investment') {
-                let liquid = (powder * 0.25).toFixed(1);
-                resultBox.innerText = `سائل البلمرة الخاص: ${liquid} ml (نسبة 100g / 25ml)`;
-            }
-        }
-    </script>
-</body>
-    </html>
+        <!-- LESSON 5: CAST PARTIAL DENTURE -->
+        <div class="lesson-card removable card overflow-hidden">
     
